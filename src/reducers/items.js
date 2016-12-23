@@ -77,6 +77,8 @@ const reducer = (
       }
 
       return state;
+    case 'CLEAR_ALL':
+      return Map();
     default:
       return state;
   }

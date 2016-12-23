@@ -2,22 +2,29 @@
 
 import type { AppState } from '../reducers';
 import type { CreatorState } from '../reducers/creator';
+import type { SettingsState } from '../reducers/settings';
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { TextField, IconButton } from 'material-ui';
-import FilterList from 'material-ui/svg-icons/content/filter-list';
+import { TextField, IconButton, IconMenu, MenuItem, Divider } from 'material-ui';
+import Settings from 'material-ui/svg-icons/action/settings';
+import Clear from 'material-ui/svg-icons/action/delete';
+import Done from 'material-ui/svg-icons/action/done';
 import { Row, Column } from 'react-cellblock';
 
 import { updateContent } from '../actions/creator';
-import { addItem } from '../actions/todos';
+import { addItem, clearAll } from '../actions/todos';
+import { setDoneVisibility } from '../actions/settings';
 
 export class Creator extends Component {
   props: {
     creator: CreatorState,
+    settings: SettingsState,
 
     updateContent: typeof updateContent,
     addItem: typeof addItem,
+    clearAll: typeof clearAll,
+    setDoneVisibility: typeof setDoneVisibility,
   }
 
   handleOnKeyPress = (event: SyntheticKeyboardEvent): void => {
@@ -34,6 +41,39 @@ export class Creator extends Component {
     }
   }
 
+  handleOnItemTouchTap = (event: SyntheticEvent, item: MenuItem): void => {
+    switch (item.key) {
+      case 'setDoneVisibility':
+        this.props.setDoneVisibility(!this.props.settings.doneVisible);
+
+        break;
+      case 'clearAll':
+        this.props.clearAll();
+
+        break;
+      default:
+        return;
+    }
+  }
+
+  renderDoneVisibility = () => {
+    if (this.props.settings.doneVisible) {
+      return (
+        <MenuItem
+          key="setDoneVisibility"
+          primaryText="Show completed tasks"
+          leftIcon={<Done/>}/>
+      );
+    }
+
+    return (
+      <MenuItem
+        key="setDoneVisibility"
+        primaryText="Show completed tasks"
+        insetChildren={true}/>
+    );
+  }
+
   render() {
     return (
       <Row className="Creator-container">
@@ -48,9 +88,18 @@ export class Creator extends Component {
         </Column>
 
         <Column className="Creator-button-container" width="3/24">
-          <IconButton>
-            <FilterList/>
-          </IconButton>
+          <IconMenu
+            onItemTouchTap={this.handleOnItemTouchTap}
+            iconButtonElement={<IconButton><Settings/></IconButton>}
+            anchorOrigin={{horizontal: 'left', vertical: 'top'}}
+            targetOrigin={{horizontal: 'left', vertical: 'top'}}>
+            {this.renderDoneVisibility()}
+            <Divider/>
+            <MenuItem
+              key="clearAll"
+              primaryText="Clear all"
+              leftIcon={<Clear/>}/>
+          </IconMenu>
         </Column>
       </Row>
     );
@@ -58,6 +107,6 @@ export class Creator extends Component {
 }
 
 export default connect(
-  ({ creator }: AppState) => ({ creator }),
-  { updateContent, addItem }
+  ({ creator, settings }: AppState) => ({ creator, settings }),
+  { updateContent, addItem, clearAll, setDoneVisibility }
 )(Creator);

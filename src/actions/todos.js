@@ -37,13 +37,18 @@ export type EditItemAction = {
   content: string,
 };
 
+export type ClearAllAction = {
+  type: 'CLEAR_ALL',
+};
+
 export type ToDoAction
   = AddItemAction
   | RemoveItemAction
   | ToggleItemAction
   | BeginEditItemAction
   | EndEditItemAction
-  | EditItemAction;
+  | EditItemAction
+  | ClearAllAction;
 
 export function addItem(content: string): AddItemAction {
   return {
@@ -89,4 +94,8 @@ export function editItem(id: string, content: string): EditItemAction {
     id,
     content,
   };
+}
+
+export function clearAll(): ClearAllAction {
+  return { type: 'CLEAR_ALL' };
 }

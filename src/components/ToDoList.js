@@ -2,18 +2,18 @@
 
 import type { AppState } from '../reducers';
 import type { ItemsState } from '../reducers/items';
+import type { SettingsState } from '../reducers/settings';
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Map } from 'immutable';
-import { Divider } from 'material-ui';
-import { Row } from 'react-cellblock';
 
 import ToDoListItem from './ToDoListItem';
 
 export class ToDoList extends Component {
   props: {
     items: ItemsState,
+    settings: SettingsState,
   }
 
   render() {
@@ -38,13 +38,19 @@ export class ToDoList extends Component {
     const hasPending = pendingElements.length !== 0;
     const hasDone = doneElements.length !== 0;
 
-    if (!hasPending && !hasDone) {
+    if ((!hasPending && !hasDone)
+      || (!hasPending && !this.props.settings.doneVisible)
+    ) {
+      const doneText = hasDone
+        ? ` There are ${doneElements.length} completed tasks.`
+        : null;
+
       return (
         <div className="ToDoList-container empty">
           <p>
             <b>Nothing here yet</b>
             <br/>
-            <small>Add an item to begin</small>
+            <small>Add an item to begin.{doneText}</small>
           </p>
         </div>
       );
@@ -58,7 +64,7 @@ export class ToDoList extends Component {
             : null
         }
         {
-          hasDone
+          hasDone && this.props.settings.doneVisible
             ? <div className="ToDoList-container">{doneElements}</div>
             : null
         }
@@ -68,5 +74,5 @@ export class ToDoList extends Component {
 }
 
 export default connect(
-  ({ items }: AppState) => ({ items }),
+  ({ items, settings }: AppState) => ({ items, settings }),
 )(ToDoList);
