@@ -8,8 +8,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { TextField, IconButton, IconMenu, MenuItem, Divider } from 'material-ui';
 import Settings from 'material-ui/svg-icons/action/settings';
-import Clear from 'material-ui/svg-icons/action/delete';
 import Done from 'material-ui/svg-icons/action/done';
+import Delete from 'material-ui/svg-icons/action/delete';
 import { Row, Column } from 'react-cellblock';
 
 import { updateContent } from '../actions/creator';
@@ -56,7 +56,7 @@ export class Creator extends Component {
     }
   }
 
-  renderDoneVisibility = () => {
+  renderDoneVisibility = (): React$Element<*> | React$Element<*> => {
     if (this.props.settings.doneVisible) {
       return (
         <MenuItem
@@ -98,7 +98,7 @@ export class Creator extends Component {
             <MenuItem
               key="clearAll"
               primaryText="Clear all"
-              leftIcon={<Clear/>}/>
+              leftIcon={<Delete/>}/>
           </IconMenu>
         </Column>
       </Row>

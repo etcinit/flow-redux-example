@@ -1,9 +1,9 @@
 /* @flow */
 
-export type UpdateContentAction = {
+export type UpdateContentAction = {|
   type: 'UPDATE_CONTENT',
   content: string,
-}
+|}
 
 export type CreatorAction = UpdateContentAction;
 

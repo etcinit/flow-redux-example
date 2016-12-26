@@ -1,9 +1,9 @@
 /* @flow */
 
-export type SetDoneVisibilityAction = {
+export type SetDoneVisibilityAction = {|
   type: 'SET_DONE_VISIBILITY',
   visible: boolean,
-};
+|};
 
 export type SettingsAction = SetDoneVisibilityAction;
 

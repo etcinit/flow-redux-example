@@ -83,7 +83,7 @@ export class ToDoListItem extends Component {
     return null;
   }
 
-  renderField = (): React$Element<*> => {
+  renderField = (): React$Element<*> | React$Element<*> => {
     if (this.props.item.editing) {
       return (
         <Column width="21/24">

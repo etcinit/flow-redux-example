@@ -1,45 +1,45 @@
 /* @flow */
 
-import uuid from 'uuid/v4';
+import uuid from 'uuid';
 import moment from 'moment';
 
-export type AddItemAction = {
+export type AddItemAction = {|
   type: 'ADD_ITEM',
   id: string,
   content: string,
   createdAt: moment$Moment,
-};
+|};
 
-export type RemoveItemAction = {
+export type RemoveItemAction = {|
   type: 'REMOVE_ITEM',
   id: string,
-};
+|};
 
-export type ToggleItemAction = {
+export type ToggleItemAction = {|
   type: 'TOGGLE_ITEM',
   id: string,
   toggledAt: moment$Moment,
-};
+|};
 
-export type BeginEditItemAction = {
+export type BeginEditItemAction = {|
   type: 'BEGIN_EDIT_ITEM',
   id: string,
-};
+|};
 
-export type EndEditItemAction = {
+export type EndEditItemAction = {|
   type: 'END_EDIT_ITEM',
   id: string,
-};
+|};
 
-export type EditItemAction = {
+export type EditItemAction = {|
   type: 'EDIT_ITEM',
   id: string,
   content: string,
-};
+|};
 
-export type ClearAllAction = {
+export type ClearAllAction = {|
   type: 'CLEAR_ALL',
-};
+|};
 
 export type ToDoAction
   = AddItemAction
@@ -53,7 +53,7 @@ export type ToDoAction
 export function addItem(content: string): AddItemAction {
   return {
     type: 'ADD_ITEM',
-    id: uuid(),
+    id: uuid.v4(),
     content,
     createdAt: moment(),
   };

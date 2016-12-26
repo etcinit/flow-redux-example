@@ -57,7 +57,6 @@ const reducer = (
     case 'END_EDIT_ITEM':
       item = state.get(action.id);
 
-      console.log(item);
       if (item) {
         return state.set(action.id, {
           ...item,

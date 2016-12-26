@@ -2,5 +2,14 @@
 
 import type { ToDoAction } from './todos';
 import type { CreatorAction } from './creator';
+import type { SettingsAction } from './settings';
 
-export type AppAction = ToDoAction | CreatorAction;
+type DummyAction = {
+  type: 'DUMMY',
+};
+
+export type AppAction
+  = ToDoAction
+  | CreatorAction
+  | SettingsAction
+  | DummyAction;

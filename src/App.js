@@ -1,5 +1,9 @@
 /* @flow */
 
+import type { Store, StoreEnhancer } from 'redux';
+import type { AppState } from './reducers';
+import type { AppAction } from './actions';
+
 import React, { Component } from 'react';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
@@ -13,10 +17,11 @@ import ToDoList from './components/ToDoList';
 import './App.css';
 import 'roboto-fontface/css/roboto/roboto-fontface.css';
 
-const store = createStore(
-  reducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-);
+const enhancer: StoreEnhancer<AppState, AppAction>
+  = window.__REDUX_DEVTOOLS_EXTENSION__
+  && window.__REDUX_DEVTOOLS_EXTENSION__();
+
+const store: Store<AppState, AppAction> = createStore(reducer, enhancer);
 
 const muiTheme = getMuiTheme({
   fontFamily: 'Roboto, Open Sans, sans-serif',
