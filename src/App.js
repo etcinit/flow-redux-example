@@ -17,11 +17,7 @@ import ToDoList from './components/ToDoList';
 import './App.css';
 import 'roboto-fontface/css/roboto/roboto-fontface.css';
 
-const enhancer: StoreEnhancer<AppState, AppAction>
-  = window.__REDUX_DEVTOOLS_EXTENSION__
-  && window.__REDUX_DEVTOOLS_EXTENSION__();
-
-const store: Store<AppState, AppAction> = createStore(reducer, enhancer);
+const store: Store<AppState, AppAction> = createStore(reducer, getEnhancer());
 
 const muiTheme = getMuiTheme({
   fontFamily: 'Roboto, Open Sans, sans-serif',
@@ -30,7 +26,12 @@ const muiTheme = getMuiTheme({
   },
 });
 
-class App extends Component {
+export function getEnhancer(): StoreEnhancer<AppState, AppAction> {
+  return window.__REDUX_DEVTOOLS_EXTENSION__
+    && window.__REDUX_DEVTOOLS_EXTENSION__();
+}
+
+export default class App extends Component {
   render() {
     return (
       <Provider store={ store }>
@@ -53,5 +54,3 @@ class App extends Component {
     );
   }
 }
-
-export default App;

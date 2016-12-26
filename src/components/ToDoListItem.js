@@ -71,10 +71,10 @@ export class ToDoListItem extends Component {
 
   handleOnCheckChange = () => this.props.toggleItem(this.props.id);
 
-  renderRemoveButton = (): ?React$Element<*> => {
+  renderMenuButton = (): ?React$Element<*> => {
     if (this.state.hover || this.state.contextOpen) {
       return (
-        <IconButton onTouchTap={this.handleOnTouchTap}>
+        <IconButton key="menuButton" onTouchTap={this.handleOnTouchTap}>
           <MoreVertIcon/>
         </IconButton>
       );
@@ -115,7 +115,7 @@ export class ToDoListItem extends Component {
         <Row>
           { this.renderField() }
           <Column width="3/24">
-            { this.renderRemoveButton() }
+            { this.renderMenuButton() }
 
             <Popover
               open={this.state.contextOpen}

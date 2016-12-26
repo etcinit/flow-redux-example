@@ -59,6 +59,7 @@ declare module 'enzyme' {
     someWhere(predicate: PredicateFunction<this>): boolean;
     every(selector: EnzymeSelector): boolean;
     everyWhere(predicate: PredicateFunction<this>): boolean;
+    exists(): boolean;
     length: number;
   }
 
