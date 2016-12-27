@@ -19,6 +19,7 @@ declare function describe(name: string, fn: Function): void;
 declare function it(name: string, fn: Function): void;
 declare function pit(name: string, fn: Function): Promise<void>;
 declare function beforeEach(fn: Function): void;
+declare function beforeAll(fn: Function): void;
 
 type JestExpectType = {
   not: JestExpectType;
