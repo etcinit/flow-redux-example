@@ -2,6 +2,8 @@
 
 An example project using React/Redux with Flow annotations
 
+![screenshot](http://imgur.com/70MziCV.jpg)
+
 ## Features
 
 - Near-complete Flowtype coverage.
